@@ -3,7 +3,9 @@
     <body>
     	<input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" /><br>
 		<br>
+		<p>
     	The confidence in the results in analyzing composition in photo heavily depends on how much confidence we can have in the subjects of the photo that we picked up. The facial recognition library that was used to detect faces in the library gives a confidence metric which tells us the probability that the pixels detected are actually a human face. Frequently, if a face is bigger in a photo it's easier to detect human features so it's also important to look at the distribution of face sizes picked up as well.
+    	</p>
 
 		Results:
 		<ul>
@@ -15,12 +17,11 @@
 			<li>Faces take up approximately 1.09% of the pixels in the whole collection.</li>
 			<li>Faces that are bigger in the photo almost always have a high confidence associated with them. Faces that are smaller have a confidences anywhere from 0 to 1.2, the variance is greater in small faces. </li>
 		</ul>
-		The plots used to get these results were created in R you can view them below:
-		<br>
-		<br>
+		<p> The plots used to get these results were created in R you can view them below: </p>
+
 		<br>
 		<br>
 
-		<img src="https://zariahoward.github.io/TeenieHarris/FaceSizeVsConf.png" alt="" style="max-width: 100%;width: 600px;"  width="600"/>
-		<img src="https://zariahoward.github.io/TeenieHarris/HistFaceSizesFull.png" alt="" style="max-width: 100%;width: 600px;"  width="600"/>
-		<img src="https://zariahoward.github.io/TeenieHarris/HistOfConfidence.png" alt="" style="max-width: 100%;width: 600px;"  width="600"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/FaceSizeVsConf.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HistFaceSizesFull.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HistOfConfidence.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
