@@ -32,7 +32,11 @@
         <strong>
         Each box represents a 40x40 pixel grid and the color is representative of how many faces overlap with that 40 x 40 pixel grid.
         </strong> 
-        I used R to create a matrix of where the faces were, exported it as a tsv and then imported it into javascript. Although I think the visualization is effective, one thing I don't like is how the gradient of colors don't really reflect the gradient of values. It makes some rings look like they contain more faces than what are actually located there. However the legend is at the bottom of the page.    
+          
+    
+      </p>
+
+
         <strong>
           <br>
         The First Button is for Horizontal Pictures
@@ -41,19 +45,7 @@
         <strong>
         The Second Button is for Vertical Pictures
         </strong>
-      </p>
 
-    Results:
-    <ul>
-      <li>Only 13% of his photos don't have faces</li>
-      <li>Oftentimes, even faces with confidences as low as 0.3 still were actually faces, I could not find any false positives</li>
-      <li>The confidence is normally distributed. The distribution has a mean of 0.98 with a standrd deviation of 0.22</li>
-      <li>The face sizes retrieved from the library are fixed and discrete. This is a result of the library </li>
-      <li>The ratio of small faces to large faces is very small, which is an effect of the fact that the majority of his photos are group shots and public events</li>
-      <li>Faces take up approximately 1.09% of the pixels in the whole collection.</li>
-      <li>Faces that are bigger in the photo almost always have a high confidence associated with them. Faces that are smaller have a confidences anywhere from 0 to 1.2, the variance is greater in small faces. </li>
-    </ul>
-    <p> The plots used to get these results were created in R you can view them below: </p>
     <div id="dataset-picker">
     </div>
     <div id="chart"></div>
@@ -187,5 +179,8 @@
 
         });
     </script>
+
+    One thing this visualization will show you is that Teenie's photographs almost always had his subjects centered. The way he kept visual balance in the photos was by making sure that the location of the people in the photos were evenly distibuted spatially. The composition of the majority of his photos could be essentially described by where the people are. To see more of the variety in his compositions it would be helpful to sort his photos by where people end up in the photo. 
+
   </body>
 </html>

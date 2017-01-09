@@ -3,26 +3,28 @@
     <body>
     	<input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" /><br>
 		<br>
-		<p>
-			In the majority of the libraries and code I'll be using on the Teenie Harris archive, all of my results will come with some measure of confidence. Because statistics is... 
-    	The confidence in the results in analyzing composition in photo heavily depends on how much confidence we can have in the subjects of the photo that we picked up. The facial recognition library that was used to detect faces in the library gives a confidence metric which tells us the probability that the pixels detected are actually a human face. Frequently, if a face is bigger in a photo it's easier to detect human features so it's also important to look at the distribution of face sizes picked up as well.
-    	</p>
-
-		Results:
-		<ul>
-			<li>The most frequent confidence level was 1.05 which is a very high confidence. Anything below 0.9 isn't absolute.</li>
-			<li>Oftentimes, even faces with confidences as low as 0.3 still were actually faces, I could not find any false positives</li>
-			<li>The confidence is normally distributed. The distribution has a mean of 0.98 with a standrd deviation of 0.22</li>
-			<li>The face sizes retrieved from the library are fixed and discrete. This is a result of the library </li>
-			<li>The ratio of small faces to large faces is very small, which is an effect of the fact that the majority of his photos are group shots and public events</li>
-			<li>Faces take up approximately 1.09% of the pixels in the whole collection.</li>
-			<li>Faces that are bigger in the photo almost always have a high confidence associated with them. Faces that are smaller have a confidences anywhere from 0 to 1.2, the variance is greater in small faces. </li>
-		</ul>
-		<p> The plots used to get these results were created in R you can view them below: </p>
-
-		<br>
-		<br>
-
-		<img src="https://zariahoward.github.io/TeenieHarris/FaceSizeVsConf.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+	
+			
+    	The confidence in the results in analyzing composition in photo heavily depends on how much confidence we can have in the subjects of the photo that we picked up. The facial recognition library that was used to detect faces in the library gives a confidence metric which tells us the probability that the pixels detected are actually a human face. The face sizes retrieved from the library are fixed and discrete. 
+<br>
 		<img src="https://zariahoward.github.io/TeenieHarris/HistFaceSizesFull.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+		<br>
+    	The majority of the faces detected are small, this is most likely an artifact of the fact that most of Teenie's photos are group pictures and crowd shots. The more people he fit into a photo, the smaller everyone's faces were. However in his portrait photographs with one or two people the faces seemed to be significantly larger. 
+
+    	(show group photo with small faces)
+    	(show portrait photo with a large face)
+
+		<br>
+		 
+		 Faces that are bigger in the photo almost always have a higher confidence associated with them. Faces that are smaller have a confidences anywhere from 0 to 1.2, the variance is greater in small faces. 
+<br>
+		<img src="https://zariahoward.github.io/TeenieHarris/FaceSizeVsConf.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+		<br>
+
+		As you can see in the chart above, it was rare to have a large face and a low confidence. Even the faces with low confidences such as 0.2 are still faces and no number is a cutoff threshold for what makes the face detection library accurate as you can see below:
+		(show a low confidence face, show a face that doesn't look like a face as well) and a (high confidence face) (use the confidence sorting pdf that you had).  The most frequent confidence level was 1.05 which is very high and in those photos the face is clear an unobstructed. 
 		<img src="https://zariahoward.github.io/TeenieHarris/HistOfConfidence.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+		<br>
+
+		All in all, moving forward we can be confident that the faces found and analyzed by the detector aren't false positives, or results that have to be parsed through which will come in handy when looking at how faces affect the rest of the composition.
+		
