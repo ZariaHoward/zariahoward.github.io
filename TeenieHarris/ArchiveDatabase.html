@@ -5,9 +5,31 @@
     <body>
     	<input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" />
         <h1 style="font-family:tahoma;"> Reference and Explanation of the Teenie Harris Archive Database </h1>
-        <h3 style="font-family:tahoma;"> January 19th, 2017 by Zaria Howard</h3>
-    	<p style="font-family:tahoma;"><br>
+        <h3 style="font-family:tahoma;"> February 24th, 2017 by Zaria Howard</h3>
+    	<p style="font-family:tahoma;">
 
+When analyzing photos in this archive it's important to make the attributes of the photo easily accessible. At a dataset of this magnitude it is no longer reasonable to rely on simple tools like reading and writing .csv files.  It was important that whatever database I chose had optimized search capabilities, compatibility with python, easy backup methods, and the ability to handle relationships between different collections. I ended up choosing MongoDB because it fit all four of those criteria.
 
+</p><p style="font-family:tahoma;">
+Using Python and Jupyter I wrote a <a href= "https://zariahoward.github.io/blob/master/Scripts/MicrosoftAPItoDatabase.ipynb"> script that takes the features collected so far and adds them to the database using the Pymongo driver.</a> Additionally when inserting features into the database it is generally helpful to have visual references for what is collected. So I also created a <a href = "https://github.com/ZariaHoward/zariahoward.github.io/blob/master/Scripts/face_detect%20copy%202.py"> script for visual annotation</a>. As more and more data is collected features will be listed in the next section. An example of the visual annotation is below.
+<center>
+	<figure>
+		<img src="https://zariahoward.github.io/VisualArtifacts/Final_12957.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/VisualArtifacts/Final_12966.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+	</figure>
+</center>
 
-CMOA Metadata
+</p><h3 style="font-family:tahoma;">Reference for Features Added to the Database </h3>	
+<p style="font-family:tahoma;">
+
+Image Height, Width, Aspect Ratio, and Orientation :
+<code>{"aspect_ratio" : 1.2628255722178374, "im_height" : 1267, "im_width" : 1600, "orientation" : "horizontal" }</code>
+
+dlib Face Detection Tags: 
+"box" is the bounding box containg [left edge, top edge, box side length]. 
+<code> {"advancedFaceDetected" : [ { "box" : [ 737.5, 355, 82.5 ], "conf" : 1.13444 }, { "box" : [ 659.5, 491.5, 40 ], "conf" : 0.00943148 } ]}</code>
+</p>
+<input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" />
+<br>
+<br>
+<br>
