@@ -3,28 +3,51 @@
     <body>
     	<input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" /><br>
 		<br>
-	
-			
-    	The confidence in the results in analyzing composition in photo heavily depends on how much confidence we can have in the subjects of the photo that we picked up. The facial recognition library that was used to detect faces in the library gives a confidence metric which tells us the probability that the pixels detected are actually a human face. The face sizes retrieved from the library are fixed and discrete. 
-<br>
-		<img src="https://zariahoward.github.io/TeenieHarris/HistFaceSizesFull.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
-		<br>
-    	The majority of the faces detected are small, this is most likely an artifact of the fact that most of Teenie's photos are group pictures and crowd shots. The more people he fit into a photo, the smaller everyone's faces were. However in his portrait photographs with one or two people the faces seemed to be significantly larger. 
-
-    	(show group photo with small faces)
-    	(show portrait photo with a large face)
-
-		<br>
-		 
+		<h1 style="font-family:tahoma;"> Confidence Values in the Teenie Harris Archive </h1>
+        <h3 style="font-family:tahoma;"> January 19th, 2017 by Zaria Howard</h3>
+    	<p style="font-family:tahoma;"><br>
+		
+		As I search into the photographs of Teenie Harris, there will be two inevitable questions of every result collected. The first, "How confident are you that this is the right statistic?" and the other is "How much error is present when using these stats for prediction". The answer to both of these questions lie in error estimation. Due to the size of the Teenie Harris Archive, it is nearly impossible to check the accuracy of every single feature of a face or photo, therefore it is important to know how much error is in our results.
+		</p><p style="font-family:tahoma;"><br>	
+    	To be more specific, in this post I'm looking at the confidence and accuracy of the face detector provided by the dlib library. The dlib library that was used gives a confidence metric from 0 to 1.2. The metric is the probability of the pixels detected actually containing a human face. 
+    	</p><p style="font-family:tahoma;"><br>	
+    	Intuitively the factor that would most affect the confidence of the face is the size of it. If a face is really small and far away, then the detector should have more difficult than if the face is large and close to the camera. The histogram below gives an idea of the range of face sizes in the photo. Note that the face sizes retrieved from the library are fixed and discrete. 
+		</p>
+		<center><figure><img src="https://zariahoward.github.io/TeenieHarris/HistFaceSizesFull.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<br></figure></center>
+		<p style="font-family:tahoma;"><br>	
+    	The majority of faces in the photos are smaller, this is most likely an artifact of the fact that most of Teenie's photos are group pictures and crowd shots. Likewise the faces in his portrait shots are larger. For reference the photo on the left has a face size of 630 and the faces in the picture on the right all have sizes between 30 and 40.
+</p><p style="font-family:tahoma;"><br>	
+    	
+        <figure>
+            <img src='https://zariahoward.github.io/TeenieHarris/Confidence/BiggestFace_50392.png' alt='missing' style="float: left; max-height: 100%;height: 500px;margin-right: 2%; " />
+            <img src='https://zariahoward.github.io/TeenieHarris/Confidence/SmallerFace_932.png' alt='missing' style="float: left; max-height: 100%;height: 500px;margin-right: 2%; " />
+            <p style="clear: both;">
+        </figure>
+</p><p style="font-family:tahoma;"><br>
 		 Faces that are bigger in the photo almost always have a higher confidence associated with them. Faces that are smaller have a confidences anywhere from 0 to 1.2, the variance is greater in small faces. 
-<br>
-		<img src="https://zariahoward.github.io/TeenieHarris/FaceSizeVsConf.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
-		<br>
+</p><p style="font-family:tahoma;"><br>
 
-		As you can see in the chart above, it was rare to have a large face and a low confidence. Even the faces with low confidences such as 0.2 are still faces and no number is a cutoff threshold for what makes the face detection library accurate as you can see below:
-		(show a low confidence face, show a face that doesn't look like a face as well) and a (high confidence face) (use the confidence sorting pdf that you had).  The most frequent confidence level was 1.05 which is very high and in those photos the face is clear an unobstructed. 
-		<img src="https://zariahoward.github.io/TeenieHarris/HistOfConfidence.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
-		<br>
-
+		<figure>
+			<img src="https://zariahoward.github.io/TeenieHarris/FaceSizeVsConf.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+			<img src="https://zariahoward.github.io/TeenieHarris/HistOfConfidence.png" alt="" style="max-width: 100%;width: 400px;"  width="400"/>
+		</figure>
+</p><p style="font-family:tahoma;"><br>
+		As you can see in the chart above, it's rare to have a low confidence on a large face. Even the faces with low confidences such as 0.2 are still faces. Below is an example of the highest confidence faces (>1.2) on the left and the lowest confidence faces (&lt 0.02) on the right:
+		<figure>
+            <img src='https://zariahoward.github.io/TeenieHarris/Confidence/HighConfidenceFaces_21317.png' alt='missing' style="float: left; max-width: 100%;width: 400px;margin-right: 2%; " />
+            <img src='https://zariahoward.github.io/TeenieHarris/Confidence/SmallestConfidenceFace_19819.png' alt='missing' style="float: left; max-width: 100%;width: 400px;margin-right: 2%; " />
+            <p style="clear: both;">
+        </figure> 
+</p><p style="font-family:tahoma;"><br>
+        The most frequent confidence level was 1.05 which is very high and in those photos the face is clear an unobstructed like the photo above on the left. 
+</p><p style="font-family:tahoma;"><br>
 		All in all, moving forward we can be confident that the faces found and analyzed by the detector aren't false positives, or results that have to be parsed through which will come in handy when looking at how faces affect the rest of the composition.
+</p>
+        <input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" />
+        <br>
+        <br>
+        <br>
+
+
 		
