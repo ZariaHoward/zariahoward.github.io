@@ -7,17 +7,56 @@
         <h1 style="font-family:tahoma;"> Humanizing Facial Detection with the Teenie Harris Archive </h1>
         <h3 style="font-family:tahoma;"> February 24th, 2017 by Zaria Howard</h3>
     	<p style="font-family:tahoma;"><br>
-
-
-Age Gender Emotions
-
-upload github link
-
-"anger": 0.00019452213,
-      "contempt": 0.000333736039,
-      "disgust": 0.000693641952,
-      "fear": 0.00000172743637,
-      "happiness": 0.9509745,
-      "neutral": 0.04753512,
-      "sadness": 0.000177138063,
-      "surprise": 0.00008960857
+Oftentimes when doing face detection on a datset, it's more about the location of where people are in the photo. However, when using Microsoft's Face and Emotion API, we also received an estimate of the age, gender, and emotion expression of each face. 
+Seeing that the gender given by Microsoft's API is binary, the main statistic on this attribute is pretty straight forward: 39.5% of the faces are women.
+</p><p style="font-family:tahoma;">
+A more complex approach to looking at this data is to see if the emotions and ages captured differ based on gender possibly due to cultural influence or photographer preference. An example of this would be if the women in the pictures tended to be younger (like in mainstream media today). Another example would be if a higher proportion of angry men were captured as opposed to angry women. 
+</p><p style="font-family:tahoma;">
+The first step is to look at the ranges of age and emotions that we have and see how Microsoft's predictions match up with our own perception. The two women below have the oldest age estimations in the database at 95 years old. 
+</p><center>
+	<figure>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/95yearold.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/Second95yearold.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+	</figure>
+</center>
+<p style="font-family:tahoma;">
+Teenie Harris also captured the cutest baby in two photos. In each picture the baby was estimated to be 0 years old.
+</p>
+<center>
+	<figure>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/0yearold.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/same0yearold.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+	</figure>
+</center>
+<p style="font-family:tahoma;">
+	These two photos below contain the two most surprised faces. Surprise is the most common emotion after happiness and neutrality in this archive. This suggest that Teenie preferred to cover more positive experiences for the community. Although both pictures below have over a 99% confidence, I'm not sure if I would characterize that face in the Christmas photo by the word "surprise". </p>
+<center>
+	<figure>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/MostSurprisedFace1.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/SecondMostSurprised.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+	</figure>
+</center>
+<p style="font-family:tahoma;">
+	Disgust is the least common emotion in the archive with only 3 out of 200,000 faces giving more than a 50% probability of being disgusted. The next least common emotion is fear, and the most fearful guy shown below only had a 65% confidence associated with that emotion of his face. Sadness, although uncommon, usually comes with much higher confidence. Most likely because the face changes when a person is sad is a lot more dramatic and not very ambiguous. The photos below show the most disgusted, most fearful, and the saddest face. It's quite obvious which one is which. </p>
+<center>
+	<figure>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/MostDisgustedFace.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/MostFearful.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/SaddestFace.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+	</figure>
+</center>
+<p style="font-family:tahoma;">
+	Now that we've seen some of the range of people in the Teenie Archive, it makes more sense to look at this faces as a whole. The histograms below are visual representations of the more significant results.</p>
+	<center>
+	<figure>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/AgesOfFacesByGender.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/HappinessHistogram.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+		<img src="https://zariahoward.github.io/TeenieHarris/HumanizingFace/NeutralHistogram.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+	</figure>
+</center>
+<p style="font-family:tahoma;">
+Although women and men have the same average age at 43 years old, the distributions by age are a little different. The age distribution of men seems to be slightly more spread out with more elderly people and children represented. Women tend to be more represented in the 18-30 age range, the time when women are generally percieved to be at peak attractiveness.</p>
+<p style="font-family:tahoma;">
+Happiness and Neutral expressions are overwhelmingly the most common in the dataset. However, it is interesting to note that women tend to be happier in the photos and the men tend to appear neutral more frequently. These facts really speak to the ideas of femininity and masculinity that were present during that time period.Generally, the emotions that aren't happiness and neutral tend to have a much more exponential distribution, with over 90% of the faces leaning towards a probability of zero for thos emotions. It was very rare to have people on camera that weren't happy or at least neutral. 
+</p>
+<p style="font-family:tahoma;">A link to a python notebook with the results can be found <a href = "https://github.com/ZariaHoward/zariahoward.github.io/blob/master/Scripts/AgeAndGender.ipynb"> here. </a></p>
