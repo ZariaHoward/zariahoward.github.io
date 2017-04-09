@@ -28,7 +28,10 @@ Image Height, Width, Aspect Ratio, and Orientation :
 dlib Face Detection Tags: 
 "box" is the bounding box containg [left edge, top edge, box side length]. 
 <code> {"advancedFaceDetected" : [ { "box" : [ 737.5, 355, 82.5 ], "conf" : 1.13444 }, { "box" : [ 659.5, 491.5, 40 ], "conf" : 0.00943148 } ]}</code>
+db.Photos.find({ "advancedFaceDetected" : { $elemMatch: { "conf" : { $lt : 0.01 }}}}).count()
 </p>
+mongo query for the file names of photos with more than 15 faces
+<code> db.Photos.find({"face_data":{$exists : true},$where : 'this.face_data.length> 15'},{path : 1}).count()</code>
 <input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" />
 <br>
 <br>

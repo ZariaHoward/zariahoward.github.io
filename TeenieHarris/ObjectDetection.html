@@ -5,18 +5,121 @@
 		<br>
 		<h1 style="font-family:tahoma;"> Finding objects in the Teenie Harris Archive
 Agglomerative Clustering</h1>
-        <h3 style="font-family:tahoma;"> January 19th, 2017 by Zaria Howard</h3>
-    	<p style="font-family:tahoma;"><br>
-    		COMING SOON! </p>
+        <h3 style="font-family:tahoma;"> April 8th, 2017 by Zaria Howard</h3>
+    	<p style="font-family:tahoma;"><br> 
+    		Throughout all of the exploratory data experiments with the Teenie Harris Archive, essentially one thing has been pretty consistent. Almost every feature distribution is normally distributed. While many statisticans would  consider that a positive attribute, it is quite boring when trying to find the exciting anomalies in an artist's work. One aspect of the Teenie Harris Archive is that he essentially captures everything, and since he took so many photos you can expect for this distribution to permeate essentially any feature that spans the entire dataset. However, the most interesting photos get hidden in the sea of normality and so a new approach is called for. Enter: Divide and Conquer. When looking at photographs, oftentimes what strikes the viewer before composition is content. So what we want to do is:
+             <ol>
+              <li>Detect the most prominent objects in the photo</li>
+              <li>Collect pairwise similarities across all of the photos and cluster the photos by their similarities</li>
+              <li>Determine the quality of each of the photo clusters</li>
+            </ol> 
+    	    </p><p style="font-family:tahoma;"><br>
+            To detect the most prominent objects in the photo, a friend of the Studio of Creative Inquiry, Kyle McDonald used a pretrained <a href = "https://www.tensorflow.org/tutorials/image_recognition"> convolutional neural network called InceptionV3 </a> to <a href = "https://github.com/ZariaHoward/zariahoward.github.io/blob/master/Scripts/image-similarity.ipynb"> classify each of the 60,000 Teenie Harris images as an object. </a> His work returned the most probable object labels for each image. </p>
+            <center>
+                <figure>
+                    <img src="https://zariahoward.github.io/VisualArtifacts/2081.jpeg" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+                </figure>
+            </center>
+            <p style="font-family:tahoma;"><br>
+            For the image above the InceptionV3 net gives a 38% chance this image is of volleyball, a 36% chance it is of bikini, and a 4.6% chance it is of basketball. </p>
+            <center>
+                <figure>
+                    <img src="https://zariahoward.github.io/VisualArtifacts/16874.jpeg" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+                </figure>
+            </center>
+            <p style="font-family:tahoma;"><br>
+            On the other hand, for the image of the dog, the Inception V3 net gave a 68.5% probability of this photo being of a Pomeranian followed by 4.7% chow, 3.0% Keeshond, and 2.7% Samoyed. Essentially, the network is really sure this photo is of a dog. Something to note about this method is that all of the probabilities for the classification sum to 1 and every label has a probability for that photo. Most of the labels outside of the top 5 have a probability approximate to zero. To check this, I counted the ranking of every label that had more than a 10% probability of being in the photo. The results:
+            </p><p style="font-family:tahoma;"><br>
+            <ol>
+              <li>5.2% of the labels were ranked #1</li>
+              <li>49.3% of the labels were ranked #2</li>
+              <li>35.1%of the labels were ranked #3</li>
+              <li>9.3% of the labels were ranked #4</li>
+              <li>0.9% of the labels were ranked #5</li>
+              <li>0.06% of the labels were ranked #6</li>
+            </ol> 
+            <p style="font-family:tahoma;"><br>
+            None of the labels with a probability of more than 10% fell outside of the top 6 ranking for a photo. Due to this distribution, I thought the best way to compare similarities of content within photos would be to take the top 5 labels from each photo and compare it with the top 5 labels for every other photo.
 
-<!-- <center>
-	<figure>
-		<img src="https://zariahoward.github.io/VisualArtifacts/Final_12957.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
-		<img src="https://zariahoward.github.io/VisualArtifacts/Final_12966.png" alt="" style="float: center;max-height: 100%;height: 400px;"/>
-	</figure>
-</center>
+            The top 10 labels found in the top 5 rank are:
+            </p><p style="font-family:tahoma;"><br>
+            <ol>
+              <li>33% (20363) groom</li>
+              <li>21% (13064) bow tie</li>
+              <li>17% (10794) lab coat</li>
+              <li>17% (10547) suit</li>
+              <li>15% (9129) television</li>
+              <li>14% (8431) restaurant</li>
+              <li>13% (8261) military uniform</li>
+              <li>12% (7506) barbershop</li>
+              <li>12% (7301) grand piano</li>
+              <li>7% (4796) vestment</li>
+            </ol>  
+            </p>
+            <p style="font-family:tahoma;"><br>
+            Many of the photos Teenie Harris took were of formal occasions such as weddings and dinners which explains why groom, suit, and bow tie were found in so many photos. Additionally Teenie took many portrait shots of men in uniform. The church and the barbershop are known as cornerstones of the black community so it is nice to see that aspect of the culture show through the algorithm.</p>
 
-<a href = "https://github.com/ZariaHoward/zariahoward.github.io/blob/master/Scripts/face_detect%20copy%202.py"> script for visual annotation</a>. As more and more data is collected features will  -->
+        <h2> Clustering the photos </h2>
+            <p style="font-family:tahoma;"><br>
+            Now that we have the most probable content for each of the photos, we want to computationally pick out photos that have similar probable content. This introduces our notion of similarity: For any two photos, the similarity between them is measure by the number of top 5 labels the photos have in common. This means every pair within the 60,000 photos has a similarity score between 0 and 5. Below is a montage of photos with the label "fur coat" in their top 5. These photos all have a pairwise similarity of at least 1.</p>
+
+            <center>
+                <figure>
+                    <img src="https://zariahoward.github.io/VisualArtifacts/fur_coat-montage.jpg" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+                </figure>
+            </center>
+            <p style="font-family:tahoma;"><br>
+            To cluster the photos I could've use either affinity propogation or hierarchical clustering. The <a href = "http://www.psi.toronto.edu/affinitypropagation/faq.html"> University of Toronto </a> has a great explanation of both algorithms : "Affinity propagation can be viewed as a spectral clustering algorithm that requires each cluster to vote for a good exemplar from within its data points. Hierarchical agglomerative clustering starts with every data point as its own cluster and then recursively merges pairs of clusters, but that method makes hard decisions that can cause it to get stuck in poor solutions. Affinity propagation can be viewed as a version of hierarchical clustering that makes soft decisions so that it is free to hedge its bets when forming clusters."</p>
+            <p style="font-family:tahoma;"><br>
+            Another factor to consider was that hierarchical clustering required me to give it a predetermined amount of clusters to find. I prefered to use an unsupervised algorithm that could determine the number of clusters by analyzing the data. This resulted in a lot of pictures being put into a cluster by themselves, but it also avoided having photos in clusters they don't belong in which is more likely with hierarchical clustering. Although affinity propogation clusters the photos by how similar or how many labels the photos have in common, The results I get from this clustering doesn't necessarily imply that the photos have the same labels in common.It means that if a photo is in a cluster, it shares more labels in common with this subset of photos than it does with any other cluster of photos. </p>
+            <p style="font-family:tahoma;"><br>
+            The results from this clustering is useful for choosing exhibitions, or in our case small groups of photos to analyze. This is also useful if you want to differentiate between photos with bow ties, grooms, and vestments as opposed to containing all those things in addition to a piano. </p>
+
+        <h3> Cluster Quality </h3>
+            <p style="font-family:tahoma;"><br>
+            Upon looking at the clusters that resulted from the algorithm. I realized that the quality varied dramatically. Some clusters were very big but the photos only had one label in common, and other clusters only had a few photos and had every label in common. The best clusters had a lot of photos with a lot of labels in common, so I assigned a score to each photo that captures that quality. The scoring system ranges from 0 to 30. Each cluster starts with a score of zero. For each label that appears in more than half of the photos in the cluster,3 points are added to the cluster's quality score. In addition, the number of photos in the cluster divided by 5 is added to the quality score. If there are less than 8 photos in a cluster then the cluster gets a quality score of zero. 
+
+            The best cluster detected in the dataset is shown below:</p>
+
+            <center>
+                <figure>
+                    <img src="https://zariahoward.github.io/VisualArtifacts/lab_list667-montage.jpg" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+                </figure>
+            </center>
+            <p style="font-family:tahoma;"><br>
+            There are 78 photos in this cluster. Bow tie, groom, vestment, lab coat, and suit are all in at least 76/78 of these photos. This cluster has a quality score of 30. Below are more examples.</p>
+
+            <center>
+                <figure>
+                    <img src="https://zariahoward.github.io/VisualArtifacts/female_dress_list450-montage.jpg" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+                </figure>
+            </center>
+            <p style="font-family:tahoma;"><br>
+            There are 66 photos in this cluster. Gown, hoopskirt, overskirt, groom, and cloak are all in at least 65/66 of these photos. This cluster has a quality score of 28.</p>
+            <center>
+                <figure>
+                    <img src="https://zariahoward.github.io/VisualArtifacts/groom_list94-montage.jpg" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+                </figure>
+            </center>
+            <p style="font-family:tahoma;"><br>
+            There are 29 photos in this cluster. Bow tie, plate, restaurant, dining table, and groom all appear at least 16/29 of these photos. This cluster has a quality score of 20. </p>
+            <center>
+                <figure>
+                    <img src="https://zariahoward.github.io/VisualArtifacts/groom_list18-montage.jpg" alt="" style="float: center;max-height: 100%;height: 400px;"/>
+                </figure>
+            </center>
+
+            <p style="font-family:tahoma;"><br>
+            There are 10 photos in this cluster. Television, groom, park bench, and swing all appear in at least 5/10 of these photos.  This cluster has a quality score of 11. </p>
+            <p style="font-family:tahoma;"><br>
+            Based on manual inspection and queries for certain quality scores, it seems as if the scores are an accurate gauge for the quality of a cluster.</p> 
+
+        <h4> Reflection and Conclusion </h4>
+        <p style="font-family:tahoma;"><br>
+        Looking at the results of the image clustering, there are modifications I would make to the experiment to improve the quality of the results. When I began this experiment, it was based on seeing what I could do with the results of an image classifier applied on the teenie harris archive. In retrospect it would have made more sense for me to use an object detector instead. Teenie Harris images are generally not of one thing but of an agglomerate of people and things. Therefore an object detector <a href = "https://pjreddie.com/darknet/yolo/"> like this </a> would be able to recognize all of the objects as once and we'd probably have detections of 20+ objects as opposed to a less confident top 5 labels. In addition, upon inspection, there are instances where none of the top 5 labels detected by InceptionV3 for an image are recognizable by the human eye. Also, some of the labels should be classified as one like hoopskirt and gown or the 30 learned types of dogs. This leads to a bias in the top 5 labels chosen for each photo. Another decision I would rethink is that I initially divided the 60,000 photos into disjoint subsets (1 layer of hierarchical clustering). This prevented photos in different subsets from being associated with eachother when they could just as well make a decent cluster. I'd also consider just doing the the affinity propogation with similarities stored as a 60,000 by 60,000 values matrix. I divided the the dataset this time because affinity propogation has a polynomial big-O runtime dependent on the number of photos input into the similarities matrix.</p>
+        <p style="font-family:tahoma;"><br>
+        Overall this investigation lead to the discovery of many small to medium sized clusters that can be inspected for anomnalies. In addition, it reveal the most frequently occuring topics of his photographs: dinners, ballplayers, weddings, and churches. To see more investigations like this, click the button below.</p>
+
 
 <input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" />
 <br>

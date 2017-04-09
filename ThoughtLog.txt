@@ -1,0 +1,37 @@
+### Research thought log. Uses tags with thoughts
+
+Using other objects in the photo where you might know the color or the value as a reference…maybe scrap the colorist idea because he’s black and probably not out to get me and you don’t know his photography techniques.
+
+detecting unlabeled objects
+
+So you wouldn’t want to just use like every pixel, you’d want to use image segmentation
+
+using machine learning to predict depth in an image. or predict 3-D mappings in space
+3/21/17
+Spent 3 hours getting image segmentation program to work.
+How can I use image segmentation which does 80% of the work to parse out unlabeled objects. used an online converter to play with ppm images. and skimmed through a research paper to get it to work.
+3/26/17
+Spent 2 hours researching how to detect perspective by reaching out to machine learning professor and figuring out how to find shape similarity
+3/26/17
+Spent 3 hours generating and downloading the clusters across the teenie harris archive 11pm-2am
+
+
+Maybe describe shapes with edges as feature vectors
+
+Step one: Running edge detection: Maybe susan instead on canny (consider smoothing)
+
+Open CV Find contours. But i need to come up with a set of rules for the shapes when i don’t necessarily know the shapes I’ll be picking out
+
+repetition gives an idea into perspective
+
+bounding box for each segment. square box
+
+the boxes are all the same size composed of 1’s and 0’s where the ones represent the presence of the object.
+
+we are look at the similarity of ones being next to zeroes. so if index 32 is black and index 33 is white in multiple images, those images have one point of similarity. you’re comparing distance between n-1 long feature vectors where n is the number of pixels in the resized image. (minus 1 because it’s a vector of transitions not pixel comparisons).
+
+try doing using homework 6 dimesnionlity reduction
+3/27/17
+2 hours - figuring out a bug in how I stored all of the clusters.
+4 hours - cleaning up holes in the data, revising original code. looking at the clusters, inserting them into the database, figuring out how to separate the meaningful clusters from the useless ones, figuring out what a meaningful cluster even is leading to coming up with a frequency chart. retrieving the exemplar and labels for all the clusters.
+1 hour - debugging insertions into the database and logging errors
