@@ -3,10 +3,10 @@
     <body>
     	<input type="button" onclick="location.href='https://zariahoward.github.io/index.html';" value="Go Back to Homepage" /><br>
 		<br>
-		<h1 style="font-family:tahoma;"> Finding Patterns in Content with Inception V3 and Agglomerative Clustering</h1>
+		<h1 style="font-family:tahoma;">Finding Patterns in the Content of Teenie Harris's Photos (with Convolutional Neural Networks and Agglomerative Clustering)</h1>
         <h3 style="font-family:tahoma;"> April 8th, 2017 by Zaria Howard</h3>
     	<p style="font-family:tahoma;"><br> 
-    		Throughout all of the exploratory data experiments with the Teenie Harris Archive, essentially one thing has been pretty consistent. Almost every feature distribution is normally distributed. While many statisticans would  consider that a positive attribute, it is quite boring when trying to find the exciting anomalies in an artist's work. One aspect of the Teenie Harris Archive is that he essentially captures everything, and since he took so many photos you can expect for this distribution to permeate essentially any feature that spans the entire dataset. However, the most interesting photos get hidden in the sea of normality and so a new approach is called for. Enter: Divide and Conquer. When looking at photographs, oftentimes what strikes the viewer before composition is content. So what we want to do is:
+    		Throughout our exploratory data experiments with the Teenie Harris Archive, one thing has been pretty consistent: almost every "feature" (such as the age of his subjects) is normally distributed. While many statisticans would consider that to be a good property for a dataset, it becomes quite boring when trying to find the exciting anomalies that characterize an artist's work. One aspect of the Teenie Harris oeuvre is that he essentially captures <em>everything</em>, and since he took so many photos, one can expect this distribution to permeate essentially any feature that spans the entire dataset. As a result, the most interesting photos get hidden in the sea of normality. To find them, a new approach is called for. Enter <em>Divide and Conquer</em>. When looking at photographs, oftentimes what strikes the viewer before composition is content. So what we want to do is:
              <ol>
               <li>Detect the most prominent objects in the photo</li>
               <li>Collect pairwise similarities across all of the photos and cluster the photos by their similarities</li>
